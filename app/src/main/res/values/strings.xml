@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyCountryNotes</string>
+    <string name="todo">TODO</string>
+    <string name="quantity_text" translatable="false">%d %s</string>
+    <string name="button_add">Add</string>
+    <string name="button_add_image">Image</string>
+    <string name="button_add_text">Text</string>
+    <string name="button_radio">Radio</string>
+    <string name="countryname">Countryname</string>
+    <string name="item_url_text">URL:https://bla bla bla</string>
+</resources>
