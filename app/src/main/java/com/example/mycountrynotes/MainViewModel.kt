@@ -5,5 +5,5 @@ import com.example.mycountrynotes.inet.CountryRepository
 
 class MainViewModel (private val repository: CountryRepository = CountryRepository) :ViewModel(){
     fun getAllCountries() = repository.getAllCountries()
-//    fun getCountriesByName() = repository.getCountriesByName(CountryInfo.name)
+    fun getCountriesByName(name: String) = repository.getCountriesByName(name)
 }

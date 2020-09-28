@@ -15,7 +15,7 @@ object CountryRepository {
 
     fun getAllCountries() = request { service.getAllCountries() }
 
-//    fun getCountriesByName(name: String) = request { service.getCountriesByName(name) }
+    fun getCountriesByName(name: String) = request { service.getCountriesByName(name) }
 
     private fun <T> request(request: suspend () -> T) = liveData<Resource<T>>(Dispatchers.IO) {
         emit(Resource.Loading())

@@ -3,8 +3,10 @@ package com.example.mycountrynotes
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 import com.example.mycountrynotes.inet.Resource
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -26,7 +28,7 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
             StaggeredGridLayoutManager(
                 resources.getInteger(R.integer.span_count), StaggeredGridLayoutManager.VERTICAL
             ).apply {
-                gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+                gapStrategy = GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
             }
         mainItems.layoutManager = layoutManager
         adapter = CountryItemRecyclerAdapter(this, infos)
@@ -35,12 +37,14 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
 
         main_search_click.setOnClickListener {
             searchName = main_city_search_view.text.toString()
-            Toast.makeText(this, searchName, Toast.LENGTH_SHORT).show()
+            refresh()
         }
+        refreshLayout.setOnRefreshListener { refresh() }
     }
 
     private fun refresh() {
-        viewModel.getAllCountries().observe(this, androidx.lifecycle.Observer {
+        if (searchName == ""){
+        viewModel.getAllCountries().observe(this, Observer {
             when (it) {
                 is Resource.Loading -> refreshLayout.isRefreshing = true
                 is Resource.Loaded -> refreshLayout.isRefreshing = false
@@ -51,7 +55,20 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
                     adapter.notifyDataSetChanged()
                 }
             }
-        })
+        })} else {
+            viewModel.getCountriesByName(searchName).observe(this, Observer {
+                when (it) {
+                    is Resource.Loading -> refreshLayout.isRefreshing = true
+                    is Resource.Loaded -> refreshLayout.isRefreshing = false
+                    is Resource.Error -> Toast.makeText(this, it.message, Toast.LENGTH_SHORT).show()
+                    is Resource.Success -> {
+                        infos.clear()
+                        infos.addAll(it.data)
+                        adapter.notifyDataSetChanged()
+                    }
+                }
+            })
+        }
     }
 
 
