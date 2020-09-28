@@ -15,7 +15,7 @@
         android:background="?selectableItemBackground">
 
         <ImageView
-            android:id="@+id/keepImage"
+            android:id="@+id/flagImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/main_image_size"
             android:alpha="1"

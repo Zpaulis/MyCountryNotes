@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), AdapterClickListener {
 
     private val infos = mutableListOf<CountryInfo>()
-    val searchName :String = ""
+    var searchName :String = ""
 
     private lateinit var adapter: CountryItemRecyclerAdapter
     private lateinit var layoutManager: StaggeredGridLayoutManager
@@ -33,7 +33,12 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         mainItems.adapter = adapter
         refresh()
 
+        main_search_click.setOnClickListener {
+            searchName = main_city_search_view.text.toString()
+            Toast.makeText(this, searchName, Toast.LENGTH_SHORT).show()
+        }
     }
+
     private fun refresh() {
         viewModel.getAllCountries().observe(this, androidx.lifecycle.Observer {
             when (it) {

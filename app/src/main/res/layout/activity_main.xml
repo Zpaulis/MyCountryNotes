@@ -4,18 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clickable="true"
     tools:context=".MainActivity">
 
-    <SearchView
-        android:id="@+id/main_search_view"
-        style="@android:style/Widget.Material.SearchView"
+
+    <EditText
+        android:id="@+id/main_city_search_view"
         android:layout_width="0dp"
-        android:layout_height="32dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:inputType="textShortMessage"
+        android:layout_weight="1"
+        android:ems="10"
+        android:hint="@string/search"
+        android:inputType="textPersonName"
+        android:text=""
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/main_search_click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:padding="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/refreshLayout"
@@ -24,7 +42,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/main_search_view">
+        app:layout_constraintTop_toBottomOf="@+id/main_city_search_view">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainItems"
@@ -34,11 +52,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_search_view"
+            app:layout_constraintTop_toBottomOf="@+id/main_city_search_view"
             app:spanCount="2"
             tools:listitem="@layout/card_short_country_info" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

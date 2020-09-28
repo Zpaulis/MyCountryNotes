@@ -46,7 +46,7 @@ class CountryItemRecyclerAdapter (
 //                }
 //            })
 //          .setPlaceHolder(placeholderLoading, placeholderError)
-            .load(flagUri, holder.itemView.keepImage)
+            .load(flagUri, holder.itemView.flagImage)
 
         holder.itemView.keepClose.setOnClickListener {
             val currentPosition = infos.indexOf(info)
