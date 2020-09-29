@@ -9,4 +9,9 @@
     <string name="countryname">Countryname</string>
     <string name="item_url_text">URL:https://bla bla bla</string>
     <string name="search">Search by Country name</string>
+    <string name="capitalcity">CapitalCity</string>
+    <string name="unknown">UNKNOWN</string>
+    <string name="add_note">Add Note</string>
+    <string name="add_picture">Add Picture</string>
+    <string name="add_link">Add Link</string>
 </resources>

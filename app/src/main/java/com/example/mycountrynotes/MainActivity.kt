@@ -1,5 +1,6 @@
 package com.example.mycountrynotes
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -12,7 +13,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterClickListener {
 
-    private val infos = mutableListOf<CountryInfo>()
     var searchName :String = ""
 
     private lateinit var adapter: CountryItemRecyclerAdapter
@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
     }
 
     override fun itemClicked(item: CountryInfo) {
+        startActivity(Intent(this, CountryDetailActivity::class.java))
 //        val intent = Intent(this, DetailActivity::class.java)
 //            .putExtra(EXTRA_ID, info.name)
 //        startActivityForResult(intent, REQUEST_CODE_DETAILS)
@@ -84,6 +85,7 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
     companion object {
         const val EXTRA_ID = "lv.romstr.mobile.extras.shopping_item_id"
         const val REQUEST_CODE_DETAILS = 1234
+        val infos = mutableListOf<CountryInfo>()
     }
 
 }

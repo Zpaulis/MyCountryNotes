@@ -20,13 +20,13 @@
             android:layout_height="@dimen/main_image_size"
             android:alpha="1"
             android:background="#C0D6A7"
+            android:contentDescription="@string/todo"
             android:scaleType="fitEnd"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars"
-            android:contentDescription="@string/todo" />
+            tools:src="@tools:sample/avatars" />
 
         <ImageView
             android:id="@+id/keepClose"

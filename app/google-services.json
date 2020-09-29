@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1074597006786",
+    "firebase_url": "https://study-exercise.firebaseio.com",
+    "project_id": "study-exercise",
+    "storage_bucket": "study-exercise.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074597006786:android:5646f6d69b9f3a6b195a5b",
+        "android_client_info": {
+          "package_name": "com.example.mycountrynotes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074597006786-hg72vgvb2o205km5qrjpm1180uc2aaoo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGYh4a83sQiJSZcf6t8ICdZJ6a0oWrm1U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074597006786-hg72vgvb2o205km5qrjpm1180uc2aaoo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

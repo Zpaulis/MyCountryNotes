@@ -57,8 +57,12 @@ class CountryItemRecyclerAdapter (
 
         holder.itemView.setOnClickListener {
             listener.itemClicked(infos[position])
+            pos = position
             Toast.makeText(context, info.name, Toast.LENGTH_SHORT).show()
 
         }
+    }
+    companion object {
+        var pos:Int = 0
     }
 }
