@@ -1,6 +1,5 @@
 package com.example.mycountrynotes
 
-import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.card_short_country_info.view.*
-import java.lang.Integer.getInteger
 
 class CountryItemRecyclerAdapter (
     private val listener: AdapterClickListener,
@@ -53,15 +51,14 @@ class CountryItemRecyclerAdapter (
         holder.itemView.keepClose.setOnClickListener {
             val currentPosition = infos.indexOf(info)
             infos.removeAt(currentPosition)
-            notifyItemRemoved(currentPosition)
+//            notifyItemRemoved(currentPosition)
+            notifyDataSetChanged()
             Toast.makeText(context, info.name, Toast.LENGTH_SHORT).show()
         }
 
         holder.itemView.setOnClickListener {
             listener.itemClicked(infos[position])
             pos = position
-            Toast.makeText(context, info.name, Toast.LENGTH_SHORT).show()
-
         }
     }
     companion object {

@@ -33,17 +33,16 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         mainItems.layoutManager = layoutManager
         adapter = CountryItemRecyclerAdapter(this, infos)
         mainItems.adapter = adapter
-        refresh()
+        if (infos.size == 0) refresh()
 
         main_search_click.setOnClickListener {
-            searchName = main_city_search_view.text.toString()
             refresh()
         }
         refreshLayout.setOnRefreshListener { refresh() }
     }
 
     private fun refresh() {
-        if (searchName == ""){
+        if (main_city_search_view.text.toString() == ""){
         viewModel.getAllCountries().observe(this, Observer {
             when (it) {
                 is Resource.Loading -> refreshLayout.isRefreshing = true
@@ -56,6 +55,7 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
                 }
             }
         })} else {
+            searchName = main_city_search_view.text.toString()
             viewModel.getCountriesByName(searchName).observe(this, Observer {
                 when (it) {
                     is Resource.Loading -> refreshLayout.isRefreshing = true
@@ -67,14 +67,12 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
                         adapter.notifyDataSetChanged()
                     }
                 }
-            })
+            })}
         }
-    }
 
-
-    override fun deleteClicked(item: CountryInfo) {
+//    override fun deleteClicked(item: CountryInfo) {
 //        viewModel.removeItem(item.id).observe(this, Observer { refresh() })
-    }
+//    }
 
     override fun itemClicked(item: CountryInfo) {
         startActivity(Intent(this, CountryDetailActivity::class.java))
@@ -93,6 +91,6 @@ interface AdapterClickListener {
 
     fun itemClicked(item: CountryInfo)
 
-    fun deleteClicked(item: CountryInfo)
+//    fun deleteClicked(item: CountryInfo)
 
 }
