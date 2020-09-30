@@ -1,5 +1,6 @@
 package com.example.mycountrynotes
 
+import android.provider.Settings.Global.getString
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.card_short_country_info.view.*
+import java.lang.Integer.getInteger
 
 class CountryItemRecyclerAdapter (
     private val listener: AdapterClickListener,
@@ -28,8 +30,8 @@ class CountryItemRecyclerAdapter (
         val context = holder.itemView.context
         val info = infos[position]
         val flagUri  = info.flag.toUri()
-        holder.itemView.country_name.text = " " + info.name + " "
-//        holder.itemView.flag_url_string.text = info.flag
+        holder.itemView.country_name.text = context.getString(R.string.text_with_spaces, info.name)
+
 // SVG to Bitmap from URL via GlideToVectorYou
         GlideToVectorYou
             .init()

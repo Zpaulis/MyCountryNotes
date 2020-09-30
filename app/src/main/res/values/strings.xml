@@ -1,17 +1,16 @@
 <resources>
     <string name="app_name">MyCountryNotes</string>
     <string name="todo">TODO</string>
-    <string name="quantity_text" translatable="false">%d %s</string>
+    <string name="text_with_spaces">" "%s " "</string>
+    <string name="number_citezens">%d citezens</string>
+    <string name="number_sqkm">%s sqkm</string>
     <string name="button_add">Add</string>
-    <string name="button_add_image">Image</string>
-    <string name="button_add_text">Text</string>
-    <string name="button_radio">Radio</string>
     <string name="countryname">Countryname</string>
     <string name="item_url_text">URL:https://bla bla bla</string>
     <string name="search">Search by Country name</string>
     <string name="capitalcity">CapitalCity</string>
     <string name="unknown">UNKNOWN</string>
-    <string name="add_note">Add Note</string>
-    <string name="add_picture">Add Picture</string>
-    <string name="add_link">Add Link</string>
+    <string name="button_add_note">Add Note</string>
+    <string name="button_add_picture">Add Picture</string>
+    <string name="button_add_link">Add Link</string>
 </resources>

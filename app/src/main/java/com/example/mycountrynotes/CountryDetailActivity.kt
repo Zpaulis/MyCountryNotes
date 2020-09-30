@@ -14,8 +14,8 @@ class CountryDetailActivity : AppCompatActivity() {
         setContentView(R.layout.activity_country_detail)
         detail_country_name.text = infos[pos].name
         detail_capital_city.text = infos[pos].capital
-        detail_population.text = infos[pos].population.toString()
-        detail_area.text = infos[pos].area.toString()
+        detail_population.text = getString(R.string.number_citezens, infos[pos].population)
+        detail_area.text = getString(R.string.number_sqkm, infos[pos].area.toString())
         drawFlag()
     }
     fun drawFlag(){
