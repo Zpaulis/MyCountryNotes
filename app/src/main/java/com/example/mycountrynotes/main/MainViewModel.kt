@@ -1,4 +1,4 @@
-package com.example.mycountrynotes
+package com.example.mycountrynotes.main
 
 import androidx.lifecycle.ViewModel
 import com.example.mycountrynotes.inet.CountryRepository

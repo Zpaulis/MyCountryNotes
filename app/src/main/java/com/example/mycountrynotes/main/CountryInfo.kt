@@ -1,4 +1,4 @@
-package com.example.mycountrynotes
+package com.example.mycountrynotes.main
 
 import com.google.gson.annotations.SerializedName
 

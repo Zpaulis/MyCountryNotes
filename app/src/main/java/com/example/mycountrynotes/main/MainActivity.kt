@@ -1,4 +1,4 @@
-package com.example.mycountrynotes
+package com.example.mycountrynotes.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,12 +8,16 @@ import androidx.lifecycle.Observer
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
+import com.example.mycountrynotes.CountryDetailActivity
+import com.example.mycountrynotes.Database
+import com.example.mycountrynotes.R
 import com.example.mycountrynotes.inet.Resource
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterClickListener {
 
-    var searchName :String = ""
+private val db get() = Database.getInstance(this)
+    private var searchName :String = ""
 
     private lateinit var adapter: CountryItemRecyclerAdapter
     private lateinit var layoutManager: StaggeredGridLayoutManager

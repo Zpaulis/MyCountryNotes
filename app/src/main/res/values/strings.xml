@@ -13,4 +13,7 @@
     <string name="button_add_note">Add Note</string>
     <string name="button_add_picture">Add Picture</string>
     <string name="button_add_link">Add Link</string>
+    <string name="text_note">Text note</string>
+    <string name="type_your_message_here">Type Your message here</string>
+    <string name="save">save</string>
 </resources>

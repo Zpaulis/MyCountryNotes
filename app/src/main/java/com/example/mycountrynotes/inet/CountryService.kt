@@ -1,6 +1,6 @@
 package com.example.mycountrynotes.inet
 
-import com.example.mycountrynotes.CountryInfo
+import com.example.mycountrynotes.main.CountryInfo
 import retrofit2.http.GET
 import retrofit2.http.Path
 

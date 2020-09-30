@@ -1,4 +1,4 @@
-package com.example.mycountrynotes
+package com.example.mycountrynotes.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mycountrynotes.R
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.card_short_country_info.view.*
 
