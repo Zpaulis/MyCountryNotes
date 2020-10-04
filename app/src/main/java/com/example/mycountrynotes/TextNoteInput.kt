@@ -18,10 +18,7 @@ class TextNoteInput : AppCompatActivity() {
         notes.addAll(db.detailNoteDao().getCountryNote(MainActivity.infos[CountryItemRecyclerAdapter.pos].name))
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val note = db.detailNoteDao().getNoteById(id)
-//        if ( id != 0L ) {
-//            note = db.detailNoteDao().getNoteById(id)
-//            detail_text_input.text = note.text as Editable
-//        }
+            detail_text_input.setText(note.text)
         button_save_text.setOnClickListener {
             note.text =  detail_text_input.text.toString()
             db.detailNoteDao().update(note)

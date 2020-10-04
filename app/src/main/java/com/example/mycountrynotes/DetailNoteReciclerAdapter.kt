@@ -60,7 +60,7 @@ class DetailNoteReciclerAdapter(
 
 
         holder.itemView.setOnClickListener{
-//            listener.noteClicked(notes[position])
+            listener.noteClicked(notes[position])
         }
         holder.itemView.note_close.setOnClickListener{
             listener.deleteClicked(notes[position])

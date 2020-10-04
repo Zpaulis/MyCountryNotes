@@ -106,6 +106,13 @@ when (int){
 
 }
 }
+
+   fun noteClicked (note: DetailNote){
+       val intent = Intent(this, TextNoteInput::class.java)
+           .putExtra(EXTRA_ID,note.uid)
+       startActivityForResult(intent, REQUEST_CODE_DETAILS)
+   }
+
  fun deleteClicked(note: DetailNote){
     db.detailNoteDao().delete(note)
 }
