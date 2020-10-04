@@ -90,7 +90,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/detail_text"
+        android:id="@+id/button_detail_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -100,7 +100,7 @@
         app:layout_constraintTop_toBottomOf="@+id/detail_flag_background" />
 
     <Button
-        android:id="@+id/detail_picture"
+        android:id="@+id/button_detail_picture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -110,7 +110,7 @@
         app:layout_constraintTop_toBottomOf="@+id/detail_flag_background" />
 
     <Button
-        android:id="@+id/detail_link"
+        android:id="@+id/button_detail_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -164,9 +164,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detail_picture" />
+        app:layout_constraintTop_toBottomOf="@+id/button_detail_picture"
+        tools:listitem="@layout/detail_note_text"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

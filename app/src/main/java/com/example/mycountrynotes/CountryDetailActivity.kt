@@ -68,7 +68,6 @@ data class DetailNoteLink(
     detail_notes.layoutManager = layoutManager
     adapter = DetailNoteReciclerAdapter(notes)
     detail_notes.adapter = adapter
-
 }
 
     }
@@ -84,6 +83,8 @@ data class DetailNoteLink(
             .with(this)
             .load(flagUri, detail_flag_background)
     }
+
+    // Add notes to Country
     private fun addNewNote(int :Int){
 when (int){
      0 -> {
@@ -111,13 +112,20 @@ when (int){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null){
-            val id = data.getLongExtra(EXTRA_ID, 0)
-            val note = db.detailNoteDao().getNoteById(id)
-            val position = notes.indexOfFirst { it.uid == note.uid }
-            notes[position] = note
-            adapter.notifyItemChanged(position)
+//            val id = data.getLongExtra(EXTRA_ID, 0)
+//            val note = db.detailNoteDao().getNoteById(id)
+//            val position = notes.indexOfFirst { it.uid == note.uid }
+//            notes[position] = note
+//            adapter.notifyItemChanged(position)
+            refreshDetail()
         }
     }
+    fun refreshDetail() {
+        notes.clear()
+        notes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        adapter.notifyDataSetChanged()
+    }
+
     companion object {
         const val EXTRA_ID = "ID1"
         const val REQUEST_CODE_DETAILS = 1234

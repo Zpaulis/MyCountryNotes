@@ -3,7 +3,6 @@ package com.example.mycountrynotes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import com.example.mycountrynotes.CountryDetailActivity.Companion.EXTRA_ID
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter
 import com.example.mycountrynotes.main.MainActivity
@@ -18,7 +17,7 @@ class TextNoteInput : AppCompatActivity() {
         setContentView(R.layout.text_input)
         notes.addAll(db.detailNoteDao().getCountryNote(MainActivity.infos[CountryItemRecyclerAdapter.pos].name))
         val id = intent.getLongExtra(EXTRA_ID, 0)
-        var note = db.detailNoteDao().getNoteById(id)
+        val note = db.detailNoteDao().getNoteById(id)
 //        if ( id != 0L ) {
 //            note = db.detailNoteDao().getNoteById(id)
 //            detail_text_input.text = note.text as Editable
