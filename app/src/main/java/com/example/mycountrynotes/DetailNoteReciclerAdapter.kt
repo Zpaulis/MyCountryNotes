@@ -4,13 +4,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.room.PrimaryKey
-import kotlinx.android.synthetic.main.detail_note_link.view.*
+import kotlinx.android.synthetic.main.detail_note_text.*
 import kotlinx.android.synthetic.main.detail_note_text.view.*
 
 
 class DetailNoteReciclerAdapter(
-//    private val listener: DetailAdapterClickListener,
+    private val listener: CountryDetailActivity,
     private val notes: MutableList<DetailNote>
 ) : RecyclerView.Adapter<DetailNoteReciclerAdapter.DetailViewHolder>() {
 
@@ -57,11 +56,16 @@ class DetailNoteReciclerAdapter(
 //holder.bind(position)
     val note = notes[position]
         val context = holder.itemView.context
-holder.itemView.detail_text.text = note.text
+        holder.itemView.detail_text.text = note.text
 
 
         holder.itemView.setOnClickListener{
 //            listener.noteClicked(notes[position])
+        }
+        holder.itemView.note_close.setOnClickListener{
+            listener.deleteClicked(notes[position])
+            notes.removeAt(position)
+            notifyDataSetChanged()
         }
     }
 

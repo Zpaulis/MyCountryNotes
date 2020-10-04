@@ -3,14 +3,12 @@ package com.example.mycountrynotes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter.Companion.pos
 import com.example.mycountrynotes.main.MainActivity.Companion.infos
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.activity_country_detail.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 class CountryDetailActivity : AppCompatActivity() {
 data class DetailNoteText(
@@ -66,7 +64,7 @@ data class DetailNoteLink(
             gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         }
     detail_notes.layoutManager = layoutManager
-    adapter = DetailNoteReciclerAdapter(notes)
+    adapter = DetailNoteReciclerAdapter(this, notes)
     detail_notes.adapter = adapter
 }
 
@@ -108,7 +106,9 @@ when (int){
 
 }
 }
-
+ fun deleteClicked(note: DetailNote){
+    db.detailNoteDao().delete(note)
+}
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null){
@@ -120,6 +120,7 @@ when (int){
             refreshDetail()
         }
     }
+
     fun refreshDetail() {
         notes.clear()
         notes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
@@ -136,6 +137,6 @@ interface DetailAdapterClickListener {
 
     fun noteClicked(note: DetailNote)
 
-    fun NoteDeleteClicked(note: DetailNote)
+    fun deleteClicked(note: DetailNote)
 
 }
