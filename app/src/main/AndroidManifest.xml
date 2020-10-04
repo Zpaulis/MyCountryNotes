@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".TextNoteInput"></activity>
+        <activity android:name=".LinkNoteInput"></activity>
+        <activity android:name=".TextNoteInput" />
         <activity android:name=".CountryDetailActivity" />
         <activity android:name=".main.MainActivity">
             <intent-filter>

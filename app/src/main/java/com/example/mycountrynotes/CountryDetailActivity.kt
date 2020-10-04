@@ -3,6 +3,7 @@ package com.example.mycountrynotes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter.Companion.pos
@@ -40,6 +41,7 @@ data class DetailNoteLink(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_country_detail)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         notes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
 
 // design detail activity header
@@ -50,13 +52,12 @@ data class DetailNoteLink(
         drawFlag()
 // work with notes
 
-//add new note
+//add new note button's listener's
         button_detail_text.setOnClickListener{ addNewNote(0)}
         button_detail_picture.setOnClickListener{ addNewNote(1)}
         button_detail_link.setOnClickListener{ addNewNote(2)}
 
 
-        if (notes.isNotEmpty()) {
     layoutManager =
         StaggeredGridLayoutManager(
             resources.getInteger(R.integer.span_count), StaggeredGridLayoutManager.VERTICAL
@@ -66,12 +67,8 @@ data class DetailNoteLink(
     detail_notes.layoutManager = layoutManager
     adapter = DetailNoteReciclerAdapter(this, notes)
     detail_notes.adapter = adapter
-}
 
     }
-//    fun sortNotes(notes: MutableList<DetailNote>){
-//        if (notes.text !== "" )-> DetailNoteText
-//    }
 
     // SVG from Uri to View using GlideToVectorYou
     fun drawFlag(){
@@ -97,10 +94,11 @@ when (int){
 // here must be picture get from galery
     }
     2 -> {
-        val id = ""
-        val intent = Intent(this, TextNoteInput::class.java)
-            .putExtra(EXTRA_ID,id)
-        startActivityForResult(intent, RESULT_OK)
+        val note = DetailNote(infos[pos].name, "", "", "", 0L )
+        note.uid = db.detailNoteDao().insertAll(note).first()
+        val intent = Intent(this, LinkNoteInput::class.java)
+            .putExtra(EXTRA_ID,note.uid)
+        startActivityForResult(intent, REQUEST_CODE_DETAILS)
     }
     else -> {val message = "UNKNOWN OPERATION"}
 
@@ -119,11 +117,6 @@ when (int){
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null){
-//            val id = data.getLongExtra(EXTRA_ID, 0)
-//            val note = db.detailNoteDao().getNoteById(id)
-//            val position = notes.indexOfFirst { it.uid == note.uid }
-//            notes[position] = note
-//            adapter.notifyItemChanged(position)
             refreshDetail()
         }
     }
@@ -134,6 +127,16 @@ when (int){
         adapter.notifyDataSetChanged()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId){
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     companion object {
         const val EXTRA_ID = "ID1"
         const val REQUEST_CODE_DETAILS = 1234
@@ -141,9 +144,6 @@ when (int){
 }
 
 interface DetailAdapterClickListener {
-
     fun noteClicked(note: DetailNote)
-
     fun deleteClicked(note: DetailNote)
-
 }
