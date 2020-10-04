@@ -9,14 +9,13 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
 import com.example.mycountrynotes.CountryDetailActivity
-import com.example.mycountrynotes.Database
 import com.example.mycountrynotes.R
 import com.example.mycountrynotes.inet.Resource
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterClickListener {
 
-private val db get() = Database.getInstance(this)
+//private val db get() = Database.getInstance(this)
     private var searchName :String = ""
 
     private lateinit var adapter: CountryItemRecyclerAdapter
@@ -85,8 +84,6 @@ private val db get() = Database.getInstance(this)
 //        startActivityForResult(intent, REQUEST_CODE_DETAILS)
     }
     companion object {
-        const val EXTRA_ID = "lv.romstr.mobile.extras.shopping_item_id"
-        const val REQUEST_CODE_DETAILS = 1234
         val infos = mutableListOf<CountryInfo>()
     }
 

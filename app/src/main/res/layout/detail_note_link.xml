@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_card"
@@ -15,14 +13,14 @@
         android:background="?selectableItemBackground">
 
         <TextView
-            android:id="@+id/detail_text"
+            android:id="@+id/detail_link"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/text_note"
             android:layout_margin="@dimen/margin_default"
             android:ellipsize="end"
             android:gravity="fill"
             android:maxLines="10"
+            android:text="@string/item_url_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

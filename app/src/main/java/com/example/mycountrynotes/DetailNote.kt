@@ -3,12 +3,12 @@ package com.example.mycountrynotes
 import androidx.room.*
 
 @Entity(tableName = "detail_note")
-data class DetailNote(
-    val name: String,
-    val text: String,
-    val picture: String,
-    val link: String,
-    @PrimaryKey(autoGenerate = true) var uid: Long = 0
+open class DetailNote(
+    open val name: String,
+    open var text: String?,
+    open var picture: String?,
+    open var link: String?,
+    @PrimaryKey(autoGenerate = true) open var uid: Long = 0
 )
 
 @Dao

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(version = 1, entities = [DetailNote::class])
+@Database(version = 2, entities = [DetailNote::class])
 abstract class DetailDatabase : RoomDatabase() {
     abstract fun detailNoteDao(): DetailNoteDao
 
@@ -20,6 +20,7 @@ object Database {
         context.applicationContext, DetailDatabase::class.java, "detail-db"
     )
         .allowMainThreadQueries()
+        .fallbackToDestructiveMigration()
         .build()
         .also { instance = it }
 }
