@@ -10,12 +10,12 @@ import kotlinx.android.synthetic.main.text_input.*
 
 class TextNoteInput : AppCompatActivity() {
     private val db get() = Database.getInstance(this)
-    private val notes = mutableListOf<DetailNote>()
+    private val detailNotes = mutableListOf<DetailNote>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.text_input)
-        notes.addAll(db.detailNoteDao().getCountryNote(MainActivity.infos[CountryItemRecyclerAdapter.pos].name))
+        detailNotes.addAll(db.detailNoteDao().getCountryNote(MainActivity.infos[CountryItemRecyclerAdapter.pos].name))
         val id = intent.getLongExtra(EXTRA_ID, 0)
         val note = db.detailNoteDao().getNoteById(id)
             detail_text_input.setText(note.text)

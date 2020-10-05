@@ -4,13 +4,13 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(version = 2, entities = [DetailNote::class])
+@Database(version = 3, entities = [DetailNote::class])
+@TypeConverters(Converters::class)
 abstract class DetailDatabase : RoomDatabase() {
     abstract fun detailNoteDao(): DetailNoteDao
-
 }
-
 
 object Database {
 

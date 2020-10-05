@@ -12,37 +12,20 @@ import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import kotlinx.android.synthetic.main.activity_country_detail.*
 
 class CountryDetailActivity : AppCompatActivity() {
-data class DetailNoteText(
-    override val name: String,
-    override var text: String?,
-    override var picture: String?,
-    override var link: String?,
-    override var uid: Long = 0
-) : DetailNote(name, text, picture, link, uid)
 
-data class DetailNoteLink(
-        override val name: String,
-        override var text: String?,
-        override var picture: String?,
-        override var link: String?,
-        override var uid: Long = 0
-) : DetailNote(name, text, picture, link, uid)
 
     private val db get() = Database.getInstance(this)
-    private val notes = mutableListOf<DetailNote>()
+    val databaseNotes = mutableListOf<DetailNote>()
+    private var notes = mutableListOf<Note>()
     private lateinit var adapter: DetailNoteReciclerAdapter
     private lateinit var layoutManager: StaggeredGridLayoutManager
-
-//sealed class DetailNote
-//    data class DetailNoteText(val name: String, val text: String) : DetailNote()
-//    data class DetailNoteLink(val name: String, val link: String) : DetailNote()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_country_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        notes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        databaseNotes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        notes = databaseNotes.map { it.toNote() } as MutableList<Note>
 
 // design detail activity header
         detail_country_name.text = infos[pos].name
@@ -57,7 +40,6 @@ data class DetailNoteLink(
         button_detail_picture.setOnClickListener{ addNewNote(1)}
         button_detail_link.setOnClickListener{ addNewNote(2)}
 
-
     layoutManager =
         StaggeredGridLayoutManager(
             resources.getInteger(R.integer.span_count), StaggeredGridLayoutManager.VERTICAL
@@ -65,9 +47,8 @@ data class DetailNoteLink(
             gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS
         }
     detail_notes.layoutManager = layoutManager
-    adapter = DetailNoteReciclerAdapter(this, notes)
+    adapter = DetailNoteReciclerAdapter( this, notes)
     detail_notes.adapter = adapter
-
     }
 
     // SVG from Uri to View using GlideToVectorYou
@@ -83,7 +64,7 @@ data class DetailNoteLink(
     private fun addNewNote(int :Int){
 when (int){
      0 -> {
-         val note = DetailNote(infos[pos].name, "", "", "", 0L )
+         val note = DetailNote(infos[pos].name, "", "", "", NoteType.TEXT,0L )
          note.uid = db.detailNoteDao().insertAll(note).first()
          val intent = Intent(this, TextNoteInput::class.java)
              .putExtra(EXTRA_ID,note.uid)
@@ -94,7 +75,7 @@ when (int){
 // here must be picture get from galery
     }
     2 -> {
-        val note = DetailNote(infos[pos].name, "", "", "", 0L )
+        val note = DetailNote(infos[pos].name, "", "", "", NoteType.LINK,0L )
         note.uid = db.detailNoteDao().insertAll(note).first()
         val intent = Intent(this, LinkNoteInput::class.java)
             .putExtra(EXTRA_ID,note.uid)
@@ -111,8 +92,9 @@ when (int){
        startActivityForResult(intent, REQUEST_CODE_DETAILS)
    }
 
- fun deleteClicked(note: DetailNote){
-    db.detailNoteDao().delete(note)
+ fun deleteClicked(datbaseNote: DetailNote){
+    db.detailNoteDao().delete(datbaseNote)
+//     refreshDetail()
 }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -122,28 +104,31 @@ when (int){
     }
 
     fun refreshDetail() {
-        notes.clear()
-        notes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        databaseNotes.clear()
+        databaseNotes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        notes = databaseNotes.map { it.toNote() } as MutableList<Note>
         adapter.notifyDataSetChanged()
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId){
-            android.R.id.home -> {
-                finish()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        return when (item.itemId){
+//            android.R.id.home -> {
+//                finish()
+//                true
+//            }
+//            else -> super.onOptionsItemSelected(item)
+//        }
+//    }
 
     companion object {
         const val EXTRA_ID = "ID1"
         const val REQUEST_CODE_DETAILS = 1234
+        const val REQUEST_CODE_DETAILS2 = 4321
+        const val REQUEST_CODE_DETAILS3 = 1111
     }
 }
 
-interface DetailAdapterClickListener {
-    fun noteClicked(note: DetailNote)
-    fun deleteClicked(note: DetailNote)
+interface listener {
+    fun noteClicked(note: Note)
+    fun deleteClicked(note: Note)
 }

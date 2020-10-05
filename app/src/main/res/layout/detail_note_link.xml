@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_card"
-    app:cardBackgroundColor="@color/colorLightBlue"
+    app:cardBackgroundColor="@color/colorYellow"
     app:cardCornerRadius="@dimen/default_card_radius">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,11 +16,11 @@
             android:id="@+id/note_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
             android:padding="@dimen/margin_default"
             android:src="@drawable/ic_close"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/todo" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/detail_link"
