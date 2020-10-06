@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/margin_card"
@@ -14,31 +14,26 @@
         android:background="?selectableItemBackground">
 
         <ImageView
-            android:id="@+id/note_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/margin_default"
-            android:src="@drawable/ic_close"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/todo" />
-
-        <TextView
-            android:id="@+id/detail_text"
+            android:id="@+id/detail_image"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_default"
-            android:ellipsize="end"
-            android:gravity="fill"
-            android:isScrollContainer="true"
-            android:maxLines="10"
-            android:overScrollMode="ifContentScrolls"
-            android:scrollbars="vertical"
-            android:text="@string/text_note"
-            android:verticalScrollbarPosition="left"
+            android:layout_height="@dimen/keep_image_size"
+            android:layout_margin="16dp"
+            android:contentDescription="@string/todo"
+            android:foregroundGravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/note_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/todo"
+            android:padding="@dimen/margin_default"
+            android:src="@drawable/ic_close"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

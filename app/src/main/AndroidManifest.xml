@@ -3,6 +3,7 @@
     package="com.example.mycountrynotes">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".App"
@@ -12,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LinkNoteInput"></activity>
+        <activity android:name=".PhotoNoteInput"></activity>
+        <activity android:name=".LinkNoteInput" />
         <activity android:name=".TextNoteInput" />
         <activity android:name=".CountryDetailActivity" />
         <activity android:name=".main.MainActivity">

@@ -1,10 +1,12 @@
 package com.example.mycountrynotes
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter.Companion.pos
@@ -65,6 +67,7 @@ class CountryDetailActivity : AppCompatActivity() {
     private fun addNewNote(int :Int){
 when (int){
      0 -> {
+         //input new TEXT note
          val note = DetailNote(infos[pos].name, "", "", "", NoteType.TEXT,0L )
          note.uid = db.detailNoteDao().insertAll(note).first()
          val intent = Intent(this, TextNoteInput::class.java)
@@ -73,9 +76,16 @@ when (int){
      }
 
     1 -> {
-// here must be picture get from galery
+// choose picture from gallery
+        val note = DetailNote(infos[pos].name, "", "", "", NoteType.PHOTO,0L )
+        note.uid = db.detailNoteDao().insertAll(note).first()
+        val intent = Intent(this, PhotoNoteInput::class.java)
+            .putExtra(EXTRA_ID,note.uid)
+        startActivityForResult(intent, REQUEST_CODE_DETAILS)
+
     }
     2 -> {
+        //input new LINK
         val note = DetailNote(infos[pos].name, "", "", "", NoteType.LINK,0L )
         note.uid = db.detailNoteDao().insertAll(note).first()
         val intent = Intent(this, LinkNoteInput::class.java)
@@ -90,17 +100,18 @@ when (int){
 
    fun noteClicked (note: DetailNote, viewType: Int){
        when (viewType){
+           //edit TEXT note
            0 -> {
-               Toast.makeText(this, note.uid.toString(), Toast.LENGTH_SHORT).show()
-
                val intent = Intent(this, TextNoteInput::class.java)
            .putExtra(EXTRA_ID,note.uid)
        startActivityForResult(intent, REQUEST_CODE_DETAILS)
            }
            1 -> {
                //Picture edit?
+               Toast.makeText(this, note.toString(), Toast.LENGTH_SHORT).show()
            }
            2 ->{
+               //edit LINK
                val intent = Intent(this, LinkNoteInput::class.java)
                    .putExtra(EXTRA_ID,note.uid)
                startActivityForResult(intent, REQUEST_CODE_DETAILS)
