@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/detail_text_input"
+        android:id="@+id/detail_link_input"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -16,17 +16,17 @@
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_save_text"
-        tools:ignore="MissingPrefix"
-        tools:text="@tools:sample/lorem/random" />
+        app:layout_constraintTop_toBottomOf="@+id/button_save_link"
+        tools:text="@tools:sample/lorem/random"
+        tools:ignore="MissingPrefix" />
 
     <Button
-        android:id="@+id/button_save_text"
+        android:id="@+id/button_save_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/save"
-        app:layout_constraintStart_toStartOf="@+id/detail_text_input"
+        app:layout_constraintStart_toStartOf="@+id/detail_link_input"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.mycountrynotes
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.mycountrynotes.CountryDetailActivity.Companion.EXTRA_ID
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter
 import com.example.mycountrynotes.main.MainActivity
@@ -22,7 +23,7 @@ class TextNoteInput : AppCompatActivity() {
         button_save_text.setOnClickListener {
             note.text =  detail_text_input.text.toString()
             db.detailNoteDao().update(note)
-    val intent = Intent().putExtra(EXTRA_ID, id)
+            val intent = Intent().putExtra(EXTRA_ID, id)
     setResult(RESULT_OK, intent)
     finish()
 }

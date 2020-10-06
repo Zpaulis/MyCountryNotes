@@ -15,9 +15,9 @@ class Converters{
     fun fromNoteType(value: NoteType) = value.name
 }
 sealed class Note{
-    data class TextNote(val text:String):Note()
-    data class PhotoNote(val picture:String):Note()
-    data class LinkNote(val link:String):Note()
+    data class TextNote(val text:String,val uid: Long):Note()
+    data class PhotoNote(val picture:String,val uid: Long):Note()
+    data class LinkNote(val link:String,val uid: Long):Note()
 }
 @Entity(tableName = "detail_note")
 data class DetailNote(
@@ -29,15 +29,15 @@ data class DetailNote(
     @PrimaryKey(autoGenerate = true) var uid: Long = 0
 ){
     fun toNote():Note = when (type) {
-        NoteType.TEXT -> Note.TextNote(text = text)
-        NoteType.PHOTO -> Note.PhotoNote(picture=picture)
-        NoteType.LINK -> Note.LinkNote(link=link)
+        NoteType.TEXT -> Note.TextNote(text = text, uid = uid)
+        NoteType.PHOTO -> Note.PhotoNote(picture=picture, uid = uid)
+        NoteType.LINK -> Note.LinkNote(link=link, uid = uid)
     }
     companion object{
         fun from(note: Note): DetailNote = when (note){
-            is Note.TextNote -> DetailNote(text = note.text, type = NoteType.TEXT)
-            is Note.PhotoNote -> DetailNote(picture = note.picture, type = NoteType.PHOTO)
-            is Note.LinkNote -> DetailNote(link = note.link, type = NoteType.LINK)
+            is Note.TextNote -> DetailNote(text = note.text, type = NoteType.TEXT, uid = note.uid)
+            is Note.PhotoNote -> DetailNote(picture = note.picture, type = NoteType.PHOTO, uid = note.uid)
+            is Note.LinkNote -> DetailNote(link = note.link, type = NoteType.LINK, uid = note.uid)
         }
     }
 }

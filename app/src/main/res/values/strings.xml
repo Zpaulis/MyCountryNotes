@@ -2,7 +2,7 @@
     <string name="app_name">MyCountryNotes</string>
     <string name="todo">TODO</string>
     <string name="text_with_spaces">" "%s " "</string>
-    <string name="number_citezens">%d citezens</string>
+    <string name="number_citezens">%d citizens</string>
     <string name="number_sqkm">%s sqkm</string>
     <string name="button_add">Add</string>
     <string name="countryname">Countryname</string>

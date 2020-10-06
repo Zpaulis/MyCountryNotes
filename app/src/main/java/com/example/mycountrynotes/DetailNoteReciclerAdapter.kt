@@ -3,7 +3,6 @@ package com.example.mycountrynotes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.detail_note_link.view.*
 import kotlinx.android.synthetic.main.detail_note_text.view.*
@@ -52,23 +51,17 @@ val inflater = LayoutInflater.from(parent.context)
     override fun getItemCount() = notes.size
 
     override fun onBindViewHolder(holder: DetailViewHolder, position: Int) {
-
-holder.bind(position)
-    val note = notes[position]
+        holder.bind(position)
         val detailNotes = notes.map { DetailNote.from(it) } as MutableList<DetailNote>
-
-        val context = holder.itemView.context
-//        holder.itemView.detail_text.text = note.text
+//        val context = holder.itemView.context
 
         holder.itemView.setOnClickListener{
-            listener.noteClicked(detailNotes[position])
+            listener.noteClicked(detailNotes[position],getItemViewType(position))
         }
         holder.itemView.note_close.setOnClickListener{
-//            val currentPosition = notes.indexOf(note)
-//            val detailNotes = notes.map { DetailNote.from(it) }  as MutableList<DetailNote>
-            listener.deleteClicked(detailNotes[position])
-            detailNotes.removeAt(position)
-            Toast.makeText(context, notes[position].toString(), Toast.LENGTH_SHORT).show()
+            val note = detailNotes[position]
+            listener.deleteClicked(note)
+            notes.removeAt(position)
             notifyDataSetChanged()
         }
     }

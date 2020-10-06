@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter.Companion.pos
@@ -13,9 +14,8 @@ import kotlinx.android.synthetic.main.activity_country_detail.*
 
 class CountryDetailActivity : AppCompatActivity() {
 
-
     private val db get() = Database.getInstance(this)
-    val databaseNotes = mutableListOf<DetailNote>()
+    val detailNotes = mutableListOf<DetailNote>()
     private var notes = mutableListOf<Note>()
     private lateinit var adapter: DetailNoteReciclerAdapter
     private lateinit var layoutManager: StaggeredGridLayoutManager
@@ -24,8 +24,9 @@ class CountryDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_country_detail)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        databaseNotes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
-        notes = databaseNotes.map { it.toNote() } as MutableList<Note>
+        detailNotes.clear()
+        detailNotes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        notes = detailNotes.map { it.toNote() } as MutableList<Note>
 
 // design detail activity header
         detail_country_name.text = infos[pos].name
@@ -81,20 +82,37 @@ when (int){
             .putExtra(EXTRA_ID,note.uid)
         startActivityForResult(intent, REQUEST_CODE_DETAILS)
     }
-    else -> {val message = "UNKNOWN OPERATION"}
-
+    else -> {val message = "UNKNOWN OPERATION"
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 }
 }
 
-   fun noteClicked (note: DetailNote){
-       val intent = Intent(this, TextNoteInput::class.java)
+   fun noteClicked (note: DetailNote, viewType: Int){
+       when (viewType){
+           0 -> {
+               Toast.makeText(this, note.uid.toString(), Toast.LENGTH_SHORT).show()
+
+               val intent = Intent(this, TextNoteInput::class.java)
            .putExtra(EXTRA_ID,note.uid)
        startActivityForResult(intent, REQUEST_CODE_DETAILS)
+           }
+           1 -> {
+               //Picture edit?
+           }
+           2 ->{
+               val intent = Intent(this, LinkNoteInput::class.java)
+                   .putExtra(EXTRA_ID,note.uid)
+               startActivityForResult(intent, REQUEST_CODE_DETAILS)
+       }
+   }
    }
 
- fun deleteClicked(datbaseNote: DetailNote){
-    db.detailNoteDao().delete(datbaseNote)
+fun deleteClicked(detailNote: DetailNote){
+//    Toast.makeText(this, detailNote.uid.toString(), Toast.LENGTH_SHORT).show()
+    db.detailNoteDao().delete(detailNote)
 //     refreshDetail()
+
 }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -104,31 +122,30 @@ when (int){
     }
 
     fun refreshDetail() {
-        databaseNotes.clear()
-        databaseNotes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
-        notes = databaseNotes.map { it.toNote() } as MutableList<Note>
+        detailNotes.clear()
+        detailNotes.addAll(db.detailNoteDao().getCountryNote(infos[pos].name))
+        notes = detailNotes.map { it.toNote() } as MutableList<Note>
         adapter.notifyDataSetChanged()
     }
+// Menu- back
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.getItemId()) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
 
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        return when (item.itemId){
-//            android.R.id.home -> {
-//                finish()
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 
     companion object {
         const val EXTRA_ID = "ID1"
         const val REQUEST_CODE_DETAILS = 1234
-        const val REQUEST_CODE_DETAILS2 = 4321
-        const val REQUEST_CODE_DETAILS3 = 1111
     }
 }
 
-interface listener {
-    fun noteClicked(note: Note)
-    fun deleteClicked(note: Note)
-}
+//interface listener {
+//    fun noteClicked(note: Note)
+//    fun deleteClicked(detailNote: DetailNote)
+
