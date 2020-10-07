@@ -15,7 +15,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), AdapterClickListener {
 
-//private val db get() = Database.getInstance(this)
     private var searchName :String = ""
 
     private lateinit var adapter: CountryItemRecyclerAdapter
@@ -38,9 +37,7 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
         mainItems.adapter = adapter
         if (infos.size == 0) refresh()
 
-        main_search_click.setOnClickListener {
-            refresh()
-        }
+        main_search_click.setOnClickListener { refresh() }
         refreshLayout.setOnRefreshListener { refresh() }
     }
 
@@ -73,25 +70,13 @@ class MainActivity : AppCompatActivity(), AdapterClickListener {
             })}
         }
 
-//    override fun deleteClicked(item: CountryInfo) {
-//        viewModel.removeItem(item.id).observe(this, Observer { refresh() })
-//    }
-
     override fun itemClicked(item: CountryInfo) {
         startActivity(Intent(this, CountryDetailActivity::class.java))
-//        val intent = Intent(this, DetailActivity::class.java)
-//            .putExtra(EXTRA_ID, info.name)
-//        startActivityForResult(intent, REQUEST_CODE_DETAILS)
     }
     companion object {
         val infos = mutableListOf<CountryInfo>()
     }
-
 }
 interface AdapterClickListener {
-
     fun itemClicked(item: CountryInfo)
-
-//    fun deleteClicked(item: CountryInfo)
-
 }

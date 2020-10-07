@@ -2,6 +2,7 @@ package com.example.mycountrynotes
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -122,9 +123,13 @@ when (int){
 fun deleteClicked(detailNote: DetailNote){
 //    Toast.makeText(this, detailNote.uid.toString(), Toast.LENGTH_SHORT).show()
     db.detailNoteDao().delete(detailNote)
-//     refreshDetail()
 
 }
+    fun getUrlFromIntent (uri: String) {
+        val intentLink = Intent(Intent.ACTION_VIEW)
+        intentLink.data = Uri.parse(uri)
+        startActivity(intentLink)
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null){

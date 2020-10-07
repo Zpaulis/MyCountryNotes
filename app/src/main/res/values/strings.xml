@@ -16,4 +16,8 @@
     <string name="text_note">Text note</string>
     <string name="type_your_message_here">Type Your message here</string>
     <string name="save">save</string>
+    <string name="www">www</string>
+    <string name="https">https</string>
+    <string name="REST_Countries">www.restcountries.eu</string>
+    <string name="path">/</string>
 </resources>

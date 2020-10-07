@@ -35,26 +35,12 @@ class CountryItemRecyclerAdapter (
         GlideToVectorYou
             .init()
             .with(context)
-//            .withListener(new GlideToVectorYouListener() {
-//                @Override
-//                public void onLoadFailed() {
-//                    Toast.makeText(context, "Load failed", Toast.LENGTH_SHORT).show()
-//                }
-//
-//                @Override
-//                public void onResourceReady() {
-//                    Toast.makeText(context, "Image ready", Toast.LENGTH_SHORT).show()
-//                }
-//            })
-//          .setPlaceHolder(placeholderLoading, placeholderError)
             .load(flagUri, holder.itemView.flagImage)
 
         holder.itemView.keepClose.setOnClickListener {
             val currentPosition = infos.indexOf(info)
             infos.removeAt(currentPosition)
-//            notifyItemRemoved(currentPosition)
             notifyDataSetChanged()
-            Toast.makeText(context, info.name, Toast.LENGTH_SHORT).show()
         }
 
         holder.itemView.setOnClickListener {

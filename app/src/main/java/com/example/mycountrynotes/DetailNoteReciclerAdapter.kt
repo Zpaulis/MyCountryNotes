@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.detail_note_link.view.*
+import kotlinx.android.synthetic.main.detail_note_link.view.detail_link_button
 import kotlinx.android.synthetic.main.detail_note_photo.view.*
 import kotlinx.android.synthetic.main.detail_note_text.view.*
 import kotlinx.android.synthetic.main.detail_note_text.view.note_close
@@ -61,12 +62,17 @@ val inflater = LayoutInflater.from(parent.context)
         val detailNotes = notes.map { DetailNote.from(it) } as MutableList<DetailNote>
 //        val context = holder.itemView.context
 
-        
+holder.itemView.detail_link_button.setOnClickListener {
+    val note = detailNotes[position]
+    listener.getUrlFromIntent(note.link)
+}
 
 
         holder.itemView.setOnClickListener{
             listener.noteClicked(detailNotes[position],getItemViewType(position))
+            notifyDataSetChanged()
         }
+
         holder.itemView.note_close.setOnClickListener{
             val note = detailNotes[position]
             listener.deleteClicked(note)
