@@ -1,13 +1,11 @@
 package com.example.mycountrynotes
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.mycountrynotes.main.CountryItemRecyclerAdapter.Companion.pos
@@ -37,6 +35,11 @@ class CountryDetailActivity : AppCompatActivity() {
         detail_population.text = getString(R.string.number_citezens, infos[pos].population)
         detail_area.text = getString(R.string.number_sqkm, infos[pos].area.toString())
         drawFlag()
+        // show country in MAP
+        detail_flag_background.setOnClickListener {
+            Toast.makeText(this, infos[pos].latlng.toString(), Toast.LENGTH_LONG).show()
+            startActivity(Intent(this, CountryMapActivity::class.java))
+        }
 // work with notes
 
 //add new note button's listener's
@@ -83,7 +86,6 @@ when (int){
         val intent = Intent(this, PhotoNoteInput::class.java)
             .putExtra(EXTRA_ID,note.uid)
         startActivityForResult(intent, REQUEST_CODE_DETAILS)
-
     }
     2 -> {
         //input new LINK
@@ -98,7 +100,6 @@ when (int){
     }
 }
 }
-
    fun noteClicked (note: DetailNote, viewType: Int){
        when (viewType){
            //edit TEXT note
@@ -121,18 +122,19 @@ when (int){
    }
 
 fun deleteClicked(detailNote: DetailNote){
-//    Toast.makeText(this, detailNote.uid.toString(), Toast.LENGTH_SHORT).show()
     db.detailNoteDao().delete(detailNote)
-
 }
+
     fun getUrlFromIntent (uri: String) {
         val intentLink = Intent(Intent.ACTION_VIEW)
         intentLink.data = Uri.parse(uri)
         startActivity(intentLink)
     }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == REQUEST_CODE_DETAILS && resultCode == RESULT_OK && data != null){
+
             refreshDetail()
         }
     }
@@ -160,8 +162,3 @@ fun deleteClicked(detailNote: DetailNote){
         const val REQUEST_CODE_DETAILS = 1234
     }
 }
-
-//interface listener {
-//    fun noteClicked(note: Note)
-//    fun deleteClicked(detailNote: DetailNote)
-

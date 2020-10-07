@@ -67,10 +67,11 @@ holder.itemView.detail_link_button.setOnClickListener {
     listener.getUrlFromIntent(note.link)
 }
 
-
         holder.itemView.setOnClickListener{
             listener.noteClicked(detailNotes[position],getItemViewType(position))
+            listener.refreshDetail()
             notifyDataSetChanged()
+
         }
 
         holder.itemView.note_close.setOnClickListener{
